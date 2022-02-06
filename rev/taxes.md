@@ -8,12 +8,11 @@ In document DG4-A, the task is relatively straightforward XORing values together
 
 ```python
 string = ""
-vals = [68, 105, 99, 101, 71, 97, 110, 103, 68, 97, 110, 99, 101, 71, 105, 103]
-
-xor-vals = [45, 7, 23, 86, 53, 15, 90, 11, 27, 19, 93, 21, 0, 41, 28, 2]
+vals = [68, 105, 99, 101, 71, 97, 110, 103, 68, 97, 110, 99, 101, 71, 105, 103] #given key
+xor_vals = [45, 7, 23, 86, 53, 15, 90, 11, 27, 19, 93, 21, 0, 41, 28, 2] #given ciphertext
 
 for i in range(0, len(vals)):
-	string += chr(vals[i] ^ xor-vals[i])
+	string += chr(vals[i] ^ xor_vals[i]) #XOR values and convert to ASCII representation
 
 print(string)
 ```
@@ -25,15 +24,16 @@ The part of the flag is: `int3rn4l_r3venue`. This can be confirmed by determing 
 In document DG4-B, the task involves adding, ANDing, and multiplying. Analysing the steps reveal a repetitive nature so we can use loops and functions.
 
 ```python
+#some values that are used repeatedly 
 four = 1162037572
 five = 1103515245
 seven = 4294967295
 nine = 12345
 twelve = 2147483647
 value = (four*five)&seven
-hidden = 95
-line = 0 # theres a value that is important that appears somewhere in the middle of calculations that need to be stored
-mod1 = []
+hidden = 95 #ASCII underscore: random guess but most likely character to come after the part of the flag that we found
+line = 0 #theres a value that is important that appears somewhere in the middle of calculations that need to be stored
+mod1 = [] #important values that need to be stored to be used later
 mod2 = []
 mod3 = []
 mod4 = []
@@ -109,10 +109,10 @@ mods.append(mod13)
 mods.append(mod14)
 mods.append(mod15)
 
-target = [1799809632, 2410097199, 1862270976, 3128452582, 2326550240, 3466793581, 1785064448, 115003115, 3378973472, 3416715536, 2900951040, 2645089189, 1243834272, 2808954356, 272176128]
+target = [1799809632, 2410097199, 1862270976, 3128452582, 2326550240, 3466793581, 1785064448, 115003115, 3378973472, 3416715536, 2900951040, 2645089189, 1243834272, 2808954356, 272176128] #given target values
 
 def brute_force_check(listVals, target, recurringVal):
-	for index in range(35, 127):
+	for index in range(35, 127): #try all ASCII values
 		val = index
 		for i in range(0, 4):
 			val = val*listVals[i]
@@ -140,3 +140,7 @@ for i in range(0, 15):
 ```
 
 The part of the flag is: `_serv1ce_m0re_l1`. This can be confirmed by determing the sha256 hash and comparing the one found in document DG1.
+
+## Part 3
+
+This part of the flag most likely begins with the letter `k`
